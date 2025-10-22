@@ -1,0 +1,161 @@
+
+### =========================
+### 🎟️ MÓDULO DE EVENTOS (RF1 / RF5)
+### =========================
+
+### Obtener todos los eventos
+GET http://127.0.0.1:8000/eventos
+Content-Type: application/json
+
+###
+
+### Obtener evento por ID
+GET http://127.0.0.1:8000/eventos/1
+Content-Type: application/json
+
+###
+
+### Buscar eventos por fecha
+GET http://127.0.0.1:8000/eventos/buscar/fecha?fecha=2025-10-22
+Content-Type: application/json
+
+###
+
+### Buscar eventos por municipio
+GET http://127.0.0.1:8000/eventos/buscar/municipio?municipio=Sogamoso
+Content-Type: application/json
+
+###
+
+### Buscar eventos por departamento
+GET http://127.0.0.1:8000/eventos/buscar/departamento?departamento=Boyacá
+Content-Type: application/json
+
+###
+
+### Crear nuevo evento
+POST http://127.0.0.1:8000/eventos
+Content-Type: application/json
+
+{
+  "nombre": "Festival de la Cultura",
+  "descripcion": "Evento artístico con presentaciones musicales y exposiciones",
+  "fecha_inicio": "2025-11-05 18:00:00",
+  "fecha_fin": "2025-11-06 23:00:00",
+  "municipio": "Sogamoso",
+  "departamento": "Boyacá",
+  "lugar": "Parque principal"
+}
+
+###
+
+### Actualizar evento
+PUT http://127.0.0.1:8000/eventos/1
+Content-Type: application/json
+
+{
+  "nombre": "Festival de la Cultura - Edición 2025",
+  "descripcion": "Evento renovado con artistas nacionales e internacionales",
+  "fecha_inicio": "2025-11-05 18:00:00",
+  "fecha_fin": "2025-11-06 23:59:00",
+  "municipio": "Sogamoso",
+  "departamento": "Boyacá",
+  "lugar": "Parque principal"
+}
+
+###
+
+### Eliminar evento
+DELETE http://127.0.0.1:8000/eventos/1
+Content-Type: application/json
+
+
+
+### =========================
+### 🏟️ MÓDULO DE LOCALIDADES (RF3)
+### =========================
+
+### Listar localidades
+GET http://127.0.0.1:8000/localidades
+Content-Type: application/json
+
+###
+
+### Crear localidad
+POST http://127.0.0.1:8000/localidades
+Content-Type: application/json
+
+{
+  "codigo": "VIP",
+  "nombre": "Zona VIP"
+}
+
+###
+
+POST http://127.0.0.1:8000/localidades
+Content-Type: application/json
+
+{
+  "codigo": "GEN",
+  "nombre": "General"
+}
+
+
+
+### =========================
+### 🎫 MÓDULO DE BOLETERÍA (RF2)
+### =========================
+
+### Crear boletería para un evento
+POST http://127.0.0.1:8000/boleteria
+Content-Type: application/json
+
+{
+  "id_evento": 1,
+  "localidad": "VIP",
+  "valor": 50000,
+  "cantidad": 200
+}
+
+###
+
+### Listar boletería por evento
+GET http://127.0.0.1:8000/boleteria/1
+Content-Type: application/json
+
+
+
+### =========================
+### 🎤 MÓDULO DE ARTISTAS (RF4)
+### =========================
+
+### Listar artistas
+GET http://127.0.0.1:8000/artistas
+Content-Type: application/json
+
+###
+
+### Crear artista
+POST http://127.0.0.1:8000/artistas
+Content-Type: application/json
+
+{
+  "codigo": "A001",
+  "nombres": "Carlos",
+  "apellidos": "Vives",
+  "genero_musica": "Vallenato",
+  "ciudad_natal": "Santa Marta"
+}
+
+###
+
+POST http://127.0.0.1:8000/artistas
+Content-Type: application/json
+
+{
+  "codigo": "A002",
+  "nombres": "Shakira",
+  "apellidos": "Mebarak",
+  "genero_musica": "Pop",
+  "ciudad_natal": "Barranquilla"
+}
