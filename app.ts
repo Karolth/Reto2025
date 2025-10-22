@@ -7,11 +7,12 @@ import { boleteriaRouter } from "./Routes/boleteriaRouter.ts";
 // import { artistaRouter } from "./Routes/artistaRouter.ts";
 import { localidadRouter } from "./Routes/localidadRouter.ts";
 import { artistaRouter } from "./Routes/artistaRouter.ts";
+import { usuarioRouter } from "./Routes/usuarioRouter.ts";
 
 const app = new Application();
 
 app.use(oakCors());
-const routers = [boleteriaRouter, eventoRouter, localidadRouter, artistaRouter];
+const routers = [usuarioRouter,boleteriaRouter, eventoRouter, localidadRouter, artistaRouter];
 
 routers.forEach((r) => {
   app.use(r.routes());
