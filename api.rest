@@ -229,3 +229,32 @@ Authorization: Bearer {{token}}
 ### 4. Cerrar Sesión (POST - Requiere Token)
 POST http://127.0.0.1:8000/usuarios/logout
 Authorization: Bearer {{token}}
+
+###
+### 1. RF7: Listar todos los eventos disponibles
+GET http://127.0.0.1:8000/consulta/eventos
+
+### -------------------------------------------
+
+### 2. RF7: Filtrar eventos por Municipio
+GET http://127.0.0.1:8000/consulta/eventos?municipio=Medellin
+
+### -------------------------------------------
+
+### 3. RF7: Obtener detalle completo de un evento (Reemplaza 1 por un ID real)
+GET http://127.0.0.1:8000/consulta/eventos/1
+
+### -------------------------------------------
+
+### 4. Listar Departamentos
+GET http://127.0.0.1:8000/consulta/departamentos
+
+### -------------------------------------------
+
+### 5. Listar Municipios
+GET http://127.0.0.1:8000/consulta/municipios
+
+### -------------------------------------------
+
+### 6. Listar lugares en un Municipio (Reemplaza 500 por un ID de municipio real)
+GET http://127.0.0.1:8000/consulta/municipios/500/lugares
