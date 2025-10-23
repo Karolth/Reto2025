@@ -1,0 +1,420 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Iniciar Sesión - Concerto">
+  <div class="auth-wrapper">
+    <div class="auth-container">
+      <div class="auth-card">
+        <div class="auth-header">
+          <h1>INICIAR SESIÓN</h1>
+          <p>Accede a tu cuenta de Concerto</p>
+        </div>
+
+        <form id="loginForm" class="auth-form">
+          <div class="form-group">
+            <label for="email">CORREO ELECTRÓNICO</label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              required 
+              placeholder="tu@email.com"
+              autocomplete="email"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="password">CONTRASEÑA</label>
+            <input 
+              type="password" 
+              id="password" 
+              name="password" 
+              required 
+              placeholder="••••••••"
+              autocomplete="current-password"
+            >
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-submit" id="submitBtn">
+              <span id="btnText">INICIAR SESIÓN</span>
+              <span id="btnLoading" class="loading" style="display: none;"></span>
+            </button>
+          </div>
+
+          <div id="mensaje" class="mensaje"></div>
+        </form>
+
+        <div class="auth-footer">
+          <p>¿No tienes una cuenta? <a href="/registro">Regístrate aquí</a></p>
+          <a href="/" class="link-home">Volver al inicio</a>
+        </div>
+      </div>
+
+      <div class="auth-decoration">
+        <div class="decoration-circle circle-1"></div>
+        <div class="decoration-circle circle-2"></div>
+        <div class="decoration-circle circle-3"></div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  /* Mismo CSS que registro.astro */
+  .auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a0033 50%, #2d0a4e 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .auth-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .auth-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 2px solid rgba(255, 0, 102, 0.3);
+    padding: 3rem;
+    box-shadow: 0 20px 60px rgba(255, 0, 102, 0.3);
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .auth-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .auth-header h1 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(90deg, #ff0066, #ff6b9d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .auth-header p {
+    color: #aaa;
+    font-size: 1rem;
+  }
+
+  .auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-group label {
+    color: #ff0066;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 0.8rem;
+    letter-spacing: 1px;
+  }
+
+  .form-group input {
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(255, 0, 102, 0.3);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1rem;
+    transition: all 0.3s;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .form-group input:focus {
+    outline: none;
+    border-color: #ff0066;
+    box-shadow: 0 0 15px rgba(255, 0, 102, 0.3);
+    background: rgba(0, 0, 0, 0.6);
+  }
+
+  .form-group input::placeholder {
+    color: #666;
+  }
+
+  .form-actions {
+    margin-top: 1rem;
+  }
+
+  .btn-submit {
+    width: 100%;
+    padding: 1.2rem;
+    background: linear-gradient(135deg, #ff0066, #cc0052);
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .btn-submit:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(255, 0, 102, 0.5);
+  }
+
+  .btn-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .mensaje {
+    padding: 1rem;
+    border-radius: 10px;
+    font-weight: 600;
+    text-align: center;
+    display: none;
+  }
+
+  .mensaje.success {
+    background: rgba(0, 255, 136, 0.2);
+    color: #00ff88;
+    border: 2px solid #00ff88;
+    display: block;
+  }
+
+  .mensaje.error {
+    background: rgba(255, 107, 107, 0.2);
+    color: #ff6b6b;
+    border: 2px solid #ff6b6b;
+    display: block;
+  }
+
+  .auth-footer {
+    margin-top: 2rem;
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .auth-footer p {
+    color: #ccc;
+    margin-bottom: 1rem;
+  }
+
+  .auth-footer a {
+    color: #ff0066;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+  }
+
+  .auth-footer a:hover {
+    color: #ff6b9d;
+  }
+
+  .link-home {
+    display: block;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .auth-decoration {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .decoration-circle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.1;
+  }
+
+  .circle-1 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, #ff0066, transparent);
+    top: -200px;
+    right: -200px;
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .circle-2 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, #8a2be2, transparent);
+    bottom: -150px;
+    left: -150px;
+    animation: float 10s ease-in-out infinite reverse;
+  }
+
+  .circle-3 {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, #ff6b9d, transparent);
+    top: 50%;
+    left: 50%;
+    animation: float 12s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(30px, -30px) scale(1.1);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .auth-card {
+      padding: 2rem;
+    }
+
+    .auth-header h1 {
+      font-size: 2rem;
+    }
+
+    .decoration-circle {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const API_URL = 'http://127.0.0.1:8000';
+
+  // Función para iniciar sesión
+  async function iniciarSesion(email: string, password: string) {
+    try {
+      console.log('Iniciando sesión para:', email);
+      
+      const res = await fetch(`${API_URL}/usuarios/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      
+      const result = await res.json();
+      console.log('Respuesta del login:', result);
+      
+      // Guardar userId en localStorage para usarlo como token
+      if (result.success && result.data) {
+        localStorage.setItem('userId', String(result.data.id_usuario));
+        localStorage.setItem('userRole', result.data.rol);
+        localStorage.setItem('userName', `${result.data.nombres} ${result.data.apellidos}`);
+        localStorage.setItem('userEmail', result.data.email);
+      }
+      
+      return result;
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+      return { 
+        success: false, 
+        message: 'Error de conexión al intentar iniciar sesión' 
+      };
+    }
+  }
+
+  const form = document.getElementById('loginForm') as HTMLFormElement;
+  const mensaje = document.getElementById('mensaje') as HTMLElement;
+  const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement;
+  const btnText = document.getElementById('btnText') as HTMLSpanElement;
+  const btnLoading = document.getElementById('btnLoading') as HTMLSpanElement;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    submitBtn.disabled = true;
+    btnText.style.display = 'none';
+    btnLoading.style.display = 'inline-block';
+    mensaje.className = 'mensaje';
+    mensaje.style.display = 'none';
+
+    const formData = new FormData(form);
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+
+    try {
+      const result = await iniciarSesion(email, password);
+
+      if (result.success) {
+        mensaje.className = 'mensaje success';
+        mensaje.textContent = '¡Inicio de sesión exitoso! Redirigiendo...';
+        mensaje.style.display = 'block';
+
+        setTimeout(() => {
+          const userRole = localStorage.getItem('userRole');
+          if (userRole === 'administrador') {
+            window.location.href = '/admin/dashboard';
+          } else {
+            window.location.href = '/';
+          }
+        }, 1500);
+      } else {
+        mensaje.className = 'mensaje error';
+        mensaje.textContent = result.message || 'Error al iniciar sesión';
+        mensaje.style.display = 'block';
+        
+        submitBtn.disabled = false;
+        btnText.style.display = 'inline';
+        btnLoading.style.display = 'none';
+      }
+    } catch (error) {
+      mensaje.className = 'mensaje error';
+      mensaje.textContent = 'Error de conexión. Intenta nuevamente.';
+      mensaje.style.display = 'block';
+      
+      submitBtn.disabled = false;
+      btnText.style.display = 'inline';
+      btnLoading.style.display = 'none';
+      
+      console.error(error);
+    }
+  });
+</script>

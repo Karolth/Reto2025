@@ -1,0 +1,544 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Registro - Concerto">
+  <div class="auth-wrapper">
+    <div class="auth-container">
+      <div class="auth-card">
+        <div class="auth-header">
+          <h1>CREAR CUENTA</h1>
+          <p>Únete a la comunidad de Concerto</p>
+        </div>
+
+        <form id="registroForm" class="auth-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nombres">NOMBRES</label>
+              <input 
+                type="text" 
+                id="nombres" 
+                name="nombres" 
+                required 
+                placeholder="Juan Carlos"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="apellidos">APELLIDOS</label>
+              <input 
+                type="text" 
+                id="apellidos" 
+                name="apellidos" 
+                required 
+                placeholder="Pérez García"
+              >
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="tipo_documento">TIPO DE DOCUMENTO</label>
+              <select id="tipo_documento" name="tipo_documento" required>
+                <option value="">Selecciona</option>
+                <option value="CC">Cédula de Ciudadanía</option>
+                <option value="CE">Cédula de Extranjería</option>
+                <option value="PA">Pasaporte</option>
+                <option value="TI">Tarjeta de Identidad</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="numero_documento">NÚMERO DE DOCUMENTO</label>
+              <input 
+                type="text" 
+                id="numero_documento" 
+                name="numero_documento" 
+                required 
+                placeholder="1234567890"
+              >
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">CORREO ELECTRÓNICO</label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              required 
+              placeholder="tu@email.com"
+              autocomplete="email"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="telefono">TELÉFONO (OPCIONAL)</label>
+            <input 
+              type="tel" 
+              id="telefono" 
+              name="telefono" 
+              placeholder="3001234567"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="password">CONTRASEÑA</label>
+            <input 
+              type="password" 
+              id="password" 
+              name="password" 
+              required 
+              placeholder="••••••••"
+              autocomplete="new-password"
+              minlength="6"
+            >
+            <small class="field-hint">Mínimo 6 caracteres</small>
+          </div>
+
+          <div class="form-group">
+            <label for="confirmacion_password">CONFIRMAR CONTRASEÑA</label>
+            <input 
+              type="password" 
+              id="confirmacion_password" 
+              name="confirmacion_password" 
+              required 
+              placeholder="••••••••"
+              autocomplete="new-password"
+            >
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-submit" id="submitBtn">
+              <span id="btnText">CREAR CUENTA</span>
+              <span id="btnLoading" class="loading" style="display: none;"></span>
+            </button>
+          </div>
+
+          <div id="mensaje" class="mensaje"></div>
+        </form>
+
+        <div class="auth-footer">
+          <p>¿Ya tienes una cuenta? <a href="/login">Inicia sesión aquí</a></p>
+          <a href="/" class="link-home">Volver al inicio</a>
+        </div>
+      </div>
+
+      <div class="auth-decoration">
+        <div class="decoration-circle circle-1"></div>
+        <div class="decoration-circle circle-2"></div>
+        <div class="decoration-circle circle-3"></div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a0033 50%, #2d0a4e 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .auth-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 700px;
+  }
+
+  .auth-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 2px solid rgba(255, 0, 102, 0.3);
+    padding: 3rem;
+    box-shadow: 0 20px 60px rgba(255, 0, 102, 0.3);
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .auth-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .auth-header h1 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(90deg, #ff0066, #ff6b9d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .auth-header p {
+    color: #aaa;
+    font-size: 1rem;
+  }
+
+  .auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-group label {
+    color: #ff0066;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 0.8rem;
+    letter-spacing: 1px;
+  }
+
+  .form-group input,
+  .form-group select {
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(255, 0, 102, 0.3);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1rem;
+    transition: all 0.3s;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus {
+    outline: none;
+    border-color: #ff0066;
+    box-shadow: 0 0 15px rgba(255, 0, 102, 0.3);
+    background: rgba(0, 0, 0, 0.6);
+  }
+
+  .form-group input::placeholder {
+    color: #666;
+  }
+
+  .form-group select {
+    cursor: pointer;
+  }
+
+  .form-group select option {
+    background: #1a0033;
+    color: #fff;
+  }
+
+  .field-hint {
+    color: #aaa;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+  }
+
+  .form-actions {
+    margin-top: 1rem;
+  }
+
+  .btn-submit {
+    width: 100%;
+    padding: 1.2rem;
+    background: linear-gradient(135deg, #ff0066, #cc0052);
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .btn-submit:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(255, 0, 102, 0.5);
+  }
+
+  .btn-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .mensaje {
+    padding: 1rem;
+    border-radius: 10px;
+    font-weight: 600;
+    text-align: center;
+    display: none;
+  }
+
+  .mensaje.success {
+    background: rgba(0, 255, 136, 0.2);
+    color: #00ff88;
+    border: 2px solid #00ff88;
+    display: block;
+  }
+
+  .mensaje.error {
+    background: rgba(255, 107, 107, 0.2);
+    color: #ff6b6b;
+    border: 2px solid #ff6b6b;
+    display: block;
+  }
+
+  .auth-footer {
+    margin-top: 2rem;
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .auth-footer p {
+    color: #ccc;
+    margin-bottom: 1rem;
+  }
+
+  .auth-footer a {
+    color: #ff0066;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+  }
+
+  .auth-footer a:hover {
+    color: #ff6b9d;
+  }
+
+  .link-home {
+    display: block;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .auth-decoration {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .decoration-circle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.1;
+  }
+
+  .circle-1 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, #ff0066, transparent);
+    top: -200px;
+    right: -200px;
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .circle-2 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, #8a2be2, transparent);
+    bottom: -150px;
+    left: -150px;
+    animation: float 10s ease-in-out infinite reverse;
+  }
+
+  .circle-3 {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, #ff6b9d, transparent);
+    top: 50%;
+    left: 50%;
+    animation: float 12s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(30px, -30px) scale(1.1);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .auth-card {
+      padding: 2rem;
+    }
+
+    .auth-header h1 {
+      font-size: 2rem;
+    }
+
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+
+    .decoration-circle {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const API_URL = 'http://127.0.0.1:8000';
+
+  // Función para registrar usuario
+  async function registrarUsuario(datos: any) {
+    try {
+      console.log('Enviando petición de registro a:', `${API_URL}/usuarios/register`);
+      console.log('Datos a enviar:', datos);
+      
+      const res = await fetch(`${API_URL}/usuarios/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(datos),
+      });
+
+      console.log('Status de respuesta:', res.status);
+      
+      const result = await res.json();
+      console.log('Respuesta del servidor:', result);
+      
+      return result;
+    } catch (error) {
+      console.error('Error al registrar usuario:', error);
+      return { 
+        success: false, 
+        message: 'Error de conexión. Verifica que el servidor esté corriendo en http://127.0.0.1:8000' 
+      };
+    }
+  }
+
+  const form = document.getElementById('registroForm') as HTMLFormElement;
+  const mensaje = document.getElementById('mensaje') as HTMLElement;
+  const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement;
+  const btnText = document.getElementById('btnText') as HTMLSpanElement;
+  const btnLoading = document.getElementById('btnLoading') as HTMLSpanElement;
+  const password = document.getElementById('password') as HTMLInputElement;
+  const confirmPassword = document.getElementById('confirmacion_password') as HTMLInputElement;
+
+  // Validar que las contraseñas coincidan en tiempo real
+  confirmPassword.addEventListener('input', () => {
+    if (password.value !== confirmPassword.value) {
+      confirmPassword.setCustomValidity('Las contraseñas no coinciden');
+    } else {
+      confirmPassword.setCustomValidity('');
+    }
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Validar contraseñas
+    if (password.value !== confirmPassword.value) {
+      mensaje.className = 'mensaje error';
+      mensaje.textContent = 'Las contraseñas no coinciden';
+      mensaje.style.display = 'block';
+      return;
+    }
+
+    // Deshabilitar botón y mostrar loading
+    submitBtn.disabled = true;
+    btnText.style.display = 'none';
+    btnLoading.style.display = 'inline-block';
+    mensaje.className = 'mensaje';
+    mensaje.style.display = 'none';
+
+    const formData = new FormData(form);
+    
+    // Construir objeto con los datos
+    const datos = {
+      nombres: formData.get('nombres') as string,
+      apellidos: formData.get('apellidos') as string,
+      tipo_documento: formData.get('tipo_documento') as string,
+      numero_documento: formData.get('numero_documento') as string,
+      email: formData.get('email') as string,
+      password: formData.get('password') as string,
+      confirmacion_password: formData.get('confirmacion_password') as string,
+      telefono: (formData.get('telefono') as string) || '',
+    };
+
+    console.log('Enviando datos:', datos);
+
+    try {
+      const result = await registrarUsuario(datos);
+
+      console.log('Respuesta del servidor:', result);
+
+      if (result.success) {
+        mensaje.className = 'mensaje success';
+        mensaje.textContent = '¡Registro exitoso! Redirigiendo al login...';
+        mensaje.style.display = 'block';
+
+        form.reset();
+
+        setTimeout(() => {
+          window.location.href = '/login';
+        }, 2000);
+      } else {
+        mensaje.className = 'mensaje error';
+        mensaje.textContent = result.message || 'Error al registrar usuario';
+        mensaje.style.display = 'block';
+        
+        submitBtn.disabled = false;
+        btnText.style.display = 'inline';
+        btnLoading.style.display = 'none';
+      }
+    } catch (error) {
+      console.error('Error en el registro:', error);
+      
+      mensaje.className = 'mensaje error';
+      mensaje.textContent = 'Error de conexión. Intenta nuevamente.';
+      mensaje.style.display = 'block';
+      
+      submitBtn.disabled = false;
+      btnText.style.display = 'inline';
+      btnLoading.style.display = 'none';
+    }
+  });
+</script>
