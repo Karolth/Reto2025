@@ -7,12 +7,13 @@ export class Localidad {
     try {
       await conexion.execute(
         "INSERT INTO localidades (codigo_localidad, nombre_localidad) VALUES (?, ?)",
-        [this.codigo, this.nombre]
+        [this.codigo, this.nombre],
       );
       return { success: true, message: "Localidad registrada correctamente" };
     } catch (error: unknown) {
-      const message =
-        error instanceof Error ? error.message : String(error ?? "Unknown error");
+      const message = error instanceof Error
+        ? error.message
+        : String(error ?? "Unknown error");
       return { success: false, message };
     }
   }
